@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by jack on 24.01.16.
- */
 public class SecondFragment extends Fragment {
-    public static final String TAG_FRAGMENT = "second fragment";
 
+    public static final String TAG_FRAGMENT = "second fragment";
     CallBackSecondFragment callBackSecondFragment;
     private TextView et;
     private Button btn;
@@ -24,8 +21,7 @@ public class SecondFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_second, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_second, container, false);
     }
 
     @Override
@@ -39,12 +35,10 @@ public class SecondFragment extends Fragment {
         callBackSecondFragment = (CallBackSecondFragment) getActivity();
     }
 
-
     private void initView(View view) {
         et = (TextView) view.findViewById(R.id.et);
         btn = (Button) view.findViewById(R.id.btn_send);
     }
-
 
     private void initListener() {
         btn.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +49,10 @@ public class SecondFragment extends Fragment {
         });
     }
 
+
     public interface CallBackSecondFragment {
         void sendMessageFromFirstFragment(String msg);
     }
+
+
 }

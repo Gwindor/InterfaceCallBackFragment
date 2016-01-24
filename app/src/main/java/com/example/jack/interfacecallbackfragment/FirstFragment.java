@@ -17,6 +17,7 @@ public class FirstFragment extends Fragment {
     TextView tv;
     Button btn;
     CallBackFirstFragment callBackFirstFragment;
+    private String SAVE_TAG = "save";
 
     public static FirstFragment newInstance() {
         FirstFragment firstFragment = new FirstFragment();
@@ -49,12 +50,16 @@ public class FirstFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBackFirstFragment.createFragment();
+                callBackFirstFragment.createFragment2();
             }
         });
     }
 
+    public void editTextView(String string){
+        tv.setText(string);
+    }
+
     public interface CallBackFirstFragment {
-        void createFragment();
+        void createFragment2();
     }
 }
