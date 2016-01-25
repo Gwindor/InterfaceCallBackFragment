@@ -32,13 +32,10 @@ public class FirstFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView(view);
         initListener();
         initInterface();
-    }
-
-    private void initInterface() {
-        callBackFirstFragment = (CallBackFirstFragment) getActivity();
     }
 
     private void initView(View view) {
@@ -55,7 +52,11 @@ public class FirstFragment extends Fragment {
         });
     }
 
-    public void editTextView(String string){
+    private void initInterface() {
+        callBackFirstFragment = (CallBackFirstFragment) getActivity();
+    }
+
+    public void editTextView(String string) {
         tv.setText(string);
     }
 

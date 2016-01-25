@@ -26,6 +26,7 @@ public class SecondFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView(view);
         initListener();
         initInterface();
