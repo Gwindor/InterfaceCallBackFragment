@@ -10,9 +10,4 @@
         android:layout_height="wrap_content"
         android:hint="text geting from second fragment" />
 
-    <Button
-        android:id="@+id/btn_second_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Second Fragment" />
 </LinearLayout>

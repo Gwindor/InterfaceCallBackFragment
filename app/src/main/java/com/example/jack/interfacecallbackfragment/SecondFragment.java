@@ -1,7 +1,8 @@
 package com.example.jack.interfacecallbackfragment;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 
 public class SecondFragment extends Fragment {
 
-    public static final String TAG_FRAGMENT = "second fragment";
-    CallBackSecondFragment callBackSecondFragment;
-    private TextView et;
-    private Button btn;
+    private static final String TAG_FRAGMENT = "second fragment";
+    private CallBackSecondFragment mCallBackSecondFragment;
+    private TextView mEt;
+    private Button mBtn;
 
     public static SecondFragment newInstance() {
         return new SecondFragment();
@@ -29,25 +30,40 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         initListener();
-        initInterface();
     }
 
-    private void initInterface() {
-        callBackSecondFragment = (CallBackSecondFragment) getActivity();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBackSecondFragment = (CallBackSecondFragment) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(this.getClass().getSimpleName() + " must implement HomeFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        mCallBackSecondFragment = null;
+        super.onDetach();
     }
 
     private void initView(View view) {
-        et = (TextView) view.findViewById(R.id.et);
-        btn = (Button) view.findViewById(R.id.btn_send);
+        mEt = (TextView) view.findViewById(R.id.et);
+        mBtn = (Button) view.findViewById(R.id.btn_send);
     }
 
     private void initListener() {
-        btn.setOnClickListener(new View.OnClickListener() {
+        mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callBackSecondFragment.sendMessageFromFirstFragment(et.getText().toString());
+                sendMessageFromFirstFragment();
             }
         });
+    }
+
+    private void sendMessageFromFirstFragment() {
+        mCallBackSecondFragment.sendMessageFromFirstFragment(mEt.getText().toString());
     }
 
 

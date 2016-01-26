@@ -1,44 +1,34 @@
 package com.example.jack.interfacecallbackfragment;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements FirstFragment.CallBackFirstFragment, SecondFragment.CallBackSecondFragment {
-    FirstFragment firstFragment;
-    SecondFragment secondFragment;
+public class MainActivity extends AppCompatActivity
+        implements SecondFragment.CallBackSecondFragment {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            firstFragment = FirstFragment.newInstance();
-            getFragmentManager()
+            Fragment firstFragment = FirstFragment.newInstance();
+            Fragment secondFragment = SecondFragment.newInstance();
+            getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment, firstFragment, FirstFragment.TAG_FRAGMENT)
-                    .addToBackStack(null)
+                    .add(R.id.firstFragment, firstFragment)
+                    .add(R.id.secondFragment, secondFragment)
                     .commit();
         }
     }
 
     @Override
-    public void createFragment2() {
-        secondFragment = SecondFragment.newInstance();
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment, secondFragment)
-                .commit();
-    }
-
-    @Override
     public void sendMessageFromFirstFragment(String msg) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, firstFragment);
-        fragmentTransaction.commit();
-        if (firstFragment != null) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.firstFragment);
+        if (fragment != null && fragment instanceof FirstFragment) {
+            FirstFragment firstFragment = (FirstFragment) fragment;
             firstFragment.editTextView(msg);
         }
     }
